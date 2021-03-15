@@ -110,7 +110,7 @@ def get_response(prompt, channel_id, do_infite):
     global generation_pipeline
     global ranker_dict
     global turns
-    global 
+    logger.info('User:', prompt)
     if max_turns_history == 0:  # eg if she should have no memory
         turns = []
 
@@ -145,6 +145,7 @@ def get_response(prompt, channel_id, do_infite):
     )
     if len(bot_messages) == 1:
         bot_message = bot_messages[0]
+        logger.info('Bot (S):', bot_message)
     else:
         bot_message = pick_best_response(
             prompt,
@@ -152,8 +153,7 @@ def get_response(prompt, channel_id, do_infite):
             ranker_dict,
             debug=debug
         )
-    print("User:", prompt)
-    print("Bot:", bot_message)
+        logger.info('Bot (BR):', bot_message)
     turn['bot_messages'].append(bot_message)
     return bot_message
 
