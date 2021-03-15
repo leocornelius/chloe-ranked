@@ -42,7 +42,7 @@ def my_index():
     return render_template("index.html")
 # Serve React App
 @app.route('/script.js')
-def my_index():
+def my_js():
     return app.send_static_file('script.js')
 
 @app.route('/get_response/<user_msg>', methods=['GET'])
