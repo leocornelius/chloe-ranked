@@ -17,7 +17,7 @@ if __name__ == '__main__':
     arg_parser.add_argument(
         '--config',
         type=str,
-        default='configs/medium-cpu.cfg',
+        default='default_config.cfg',
         help="Path to the config"
     )
     args = arg_parser.parse_args()
