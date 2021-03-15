@@ -110,7 +110,7 @@ def get_response(user_msg):
 
 
 
-def main():
+def run(**kwargs):
       # Extract parameters
     global general_params
     global device
@@ -160,5 +160,4 @@ def main():
     app.run()
 
 
-if __name__ == '__main__':
-    main()
+
