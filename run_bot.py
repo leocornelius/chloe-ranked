@@ -11,8 +11,8 @@ if __name__ == '__main__':
     arg_parser.add_argument(
         '--type',
         type=str,
-        default='telegram',
-        help="Type of the conversation to run: telegram, console or dialogue"
+        default='discord',
+        help="Type of the conversation to run: telegram, console, dialogue or discord"
     )
     arg_parser.add_argument(
         '--config',
