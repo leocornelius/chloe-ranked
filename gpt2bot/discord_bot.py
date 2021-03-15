@@ -58,6 +58,7 @@ def run(**kwargs):
     cond_ranker_weights = kwargs.get('cond_ranker_weights', {})
 
     chatbot_params = kwargs.get('chatbot_params', {})
+    discord_token = chatbot_params.discord_token
     max_turns_history = chatbot_params.get('max_turns_history', 2)
 
     # Prepare the pipelines
@@ -68,7 +69,11 @@ def run(**kwargs):
 
     # Run the chatbot
     logger.info("Running the discord bot...")
-    client.run(discord_token)
+    if (chatbot_params.discord_token):
+        client.run(discord_token, bot = False)
+    else:
+        logger.error("Failed to read discord token from config file")
+        client.run(null)
 
 
 @client.event
@@ -145,7 +150,7 @@ def get_response(prompt, channel_id, do_infite):
     )
     if len(bot_messages) == 1:
         bot_message = bot_messages[0]
-        logger.info('Bot (S):', bot_message)
+        logger.info('Bot (S): {}'.format(bot_message))
     else:
         bot_message = pick_best_response(
             prompt,
@@ -153,7 +158,7 @@ def get_response(prompt, channel_id, do_infite):
             ranker_dict,
             debug=debug
         )
-        logger.info('Bot (BR):', bot_message)
+        logger.info('Bot (BR): {}'.format(bot_message))
     turn['bot_messages'].append(bot_message)
     return bot_message
 
