@@ -5,6 +5,7 @@ from gpt2bot.console_bot import run as run_console_bot
 from gpt2bot.discord_bot import run as run_discord_bot
 from gpt2bot.dialogue import run as run_dialogue
 from gpt2bot.utils import parse_config
+from gpt2bot.api import run as api_run
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
@@ -32,5 +33,7 @@ if __name__ == '__main__':
         run_dialogue(**config)
     elif args.type == 'discord':
         run_discord_bot(**config)
+    elif args.type == 'api':
+        api_run(**config)
     else:
         raise ValueError("Unrecognized conversation type")
