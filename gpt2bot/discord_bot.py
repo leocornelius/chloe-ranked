@@ -58,7 +58,7 @@ def run(**kwargs):
     cond_ranker_weights = kwargs.get('cond_ranker_weights', {})
 
     chatbot_params = kwargs.get('chatbot_params', {})
-    discord_token = chatbot_params['discord_token']
+    discord_token = chatbot_params.get('discord_token', 'none')
     max_turns_history = chatbot_params.get('max_turns_history', 2)
 
     # Prepare the pipelines
