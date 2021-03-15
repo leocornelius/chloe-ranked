@@ -5,7 +5,7 @@ logger = setup_logger(__name__)
 turns = []
 
 
-global needMention = True
+needMention = True
 client = discord.Client()
 global general_params
 global device
@@ -92,7 +92,6 @@ async def on_message(message):
         else:
             txt = get_response(txtinput, message.guild.id,
                                False)  # Get a response!
-        response_blob = TextBlob(txt)
         number_of_sent_messages += 1
         bot_message = await message.channel.send(txt)  # Fire away!
 
