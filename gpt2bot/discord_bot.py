@@ -69,7 +69,7 @@ def run(**kwargs):
 
     # Run the chatbot
     logger.info("Running the discord bot...")
-    if (chatbot_params.discord_token):
+    if (discord_token):
         client.run(discord_token, bot = False)
     else:
         logger.error("Failed to read discord token from config file")
@@ -88,17 +88,18 @@ async def on_message(message):
         return
 
     if(client.user.mentioned_in(message) or isinstance(message.channel, discord.abc.PrivateChannel) or needMention == False):
-        txtinput = message.content.replace("<@" + str(client.user.id) + ">", "").replace("<@!" + str(
-            client.user.id) + ">", "")  # Filter out the mention so the bot does not get confused
-        txt = ''
-        if(isinstance(message.channel, discord.abc.PrivateChannel)):
-            txt = get_response(txtinput, message.author.id,
-                               False)  # Get a response!
-        else:
-            txt = get_response(txtinput, message.guild.id,
-                               False)  # Get a response!
-        number_of_sent_messages += 1
-        bot_message = await message.channel.send(txt)  # Fire away!
+        async with message.channel.typing():
+          txtinput = message.content.replace("<@" + str(client.user.id) + ">", "").replace("<@!" + str(
+              client.user.id) + ">", "")  # Filter out the mention so the bot does not get confused
+          txt = ''
+          if(isinstance(message.channel, discord.abc.PrivateChannel)):
+              txt = get_response(txtinput, message.author.id,
+                                 False)  # Get a response!
+          else:
+              txt = get_response(txtinput, message.guild.id,
+                                 False)  # Get a response!
+          number_of_sent_messages += 1
+          bot_message = await message.channel.send(txt)  # Fire away!
 
 
 def get_response(prompt, channel_id, do_infite):
