@@ -2,7 +2,7 @@ import discord
 from .utils import *
 
 logger = setup_logger(__name__)
-global turns = []
+turns = []
 
 
 global needMention = True
@@ -19,10 +19,24 @@ global chatbot_params
 global max_turns_history
 global generation_pipeline
 global ranker_dict
-global number_of_sent_messages = 0
+number_of_sent_messages = 0
+discord_token = ''
 
 def run(**kwargs):
     # Extract parameters
+    global general_params
+    global device
+    global seed
+    global debug
+    global generation_pipeline_kwargs
+    global generator_kwargs
+    global prior_ranker_weights
+    global cond_ranker_weights
+    global chatbot_params
+    global max_turns_history
+    global generation_pipeline
+    global ranker_dict
+    global discord_token
     general_params = kwargs.get('general_params', {})
     device = general_params.get('device', -1)
     seed = general_params.get('seed', None)
@@ -53,12 +67,13 @@ def run(**kwargs):
         device=device, **prior_ranker_weights, **cond_ranker_weights)
 
     # Run the chatbot
-    logger.info("Running the console bot...")
+    logger.info("Running the discord bot...")
+    client.run(discord_token)
 
 
 @client.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+     logger.info('We have logged in as {0.user}'.format(client))
 
 
 @client.event
@@ -96,6 +111,7 @@ def get_response(prompt, channel_id, do_infite):
     global generation_pipeline
     global ranker_dict
     global turns
+    global 
     if max_turns_history == 0:  # eg if she should have no memory
         turns = []
 
@@ -143,4 +159,3 @@ def get_response(prompt, channel_id, do_infite):
     return bot_message
 
 
-client.run('your token here')
