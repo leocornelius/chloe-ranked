@@ -1,142 +1,79 @@
-# gpt2bot
 
-<img src="https://github.com/polakowo/gpt2bot/blob/master/logo.png?raw=true" width=128>
+# Chloe AI
+ChloeAI is a [DialoGPT](https://arxiv.org/abs/1911.00536) powered bot. [DialoGPT](https://arxiv.org/abs/1911.00536) is a large pretrained diologue generation model based on GPT2. It was trained by microsoft using 147M mullti-turn diolgue from redit. 
 
-```
-⚪   >>> Can we achieve singularity?
-🟣   >>> What does this mean?
+## Running
+Chloe requires python 3.6+, please check your python version with `python3 --version`
+All of chloes python libaries are in the `requirements.txt` file, you can install them with:
+``python3 -m pip install -r requirements.txt``
+You can then edit the config file, `default_config.cfg`  to your need
 
-⚪   >>> Can computers become smarter than humans?
-🟣   >>> Is there any evidence that this is possible?
-
-⚪   >>> It must be doable
-🟣   >>> But... how?
-
-⚪   >>> I want to find out, that's why I created you
-🟣   >>> You created me?
-
-⚪   >>> You're my bot
-🟣   >>> You monster
-```
-
-gpt2bot is a multi-turn Telegram chatbot powered by neural networks. 
-
-The bot uses [DialoGPT](https://arxiv.org/abs/1911.00536) - a large-scale pretrained 
-dialogue response generation model, which was trained by Microsoft on 147M multi-turn 
-dialogue from Reddit discussion thread. The human evaluation results indicate that its 
-quality is comparable to human response quality under a single-turn conversation Turing test.
-
-The bot can also use any other text generator supported by [transformers](https://huggingface.co/transformers/).
-
-To further improve dialog generation, the bot uses [DialogRPT](https://arxiv.org/abs/2009.06978) - 
-a set of dialog response ranking models trained on 100+ millions of human feedback data.
-
-Since the underlying model was trained on Reddit comment chains, the bot often behaves like 
-a community rather than an individual, which makes it even more fun.
+To run the bot run:
+``python3 run_bot.py --type=discord``
+Availble types are:
+- discord - A discord bot
+- telegram - A telegram bot
+- dialouge - Where the bot will speak to itself
+- api - Where the bot will open a REST api for usage with the UI
+- omegle - TODO: the bot will connect with random people on omegle chat and talk to them, saving converstaions to a file. This is fun
   
-## How to use?
-
-### (Optional) Test in the console
-
-Before running a telegram bot, you can test things out in the console.
-
-Follow [the installation steps](https://github.com/polakowo/gpt2bot#locally) and run the script:
-
-```
-$ python run_bot.py --type=console
-```
-
-To let two bots talk to each other:
-
-```
-$ python run_bot.py --type=dialogue
-```
-
-### 1. Set up the bot
-
-1. Register a new Telegram bot via BotFather (see https://core.telegram.org/bots)
-2. Create a new GIPHY app and generate an API key (see https://developers.giphy.com/docs/api/)
-
-### 2. Deploy the bot
-
-#### Google Colab
-
-[A Colab interactive notebook](https://colab.research.google.com/github/polakowo/gpt2bot/blob/master/Demo.ipynb)
-
-#### Locally
-
-To get started, first clone this repo:
-
-```
-$ git clone https://github.com/polakowo/gpt2bot.git
-$ cd gpt2bot
-```
-
-Create and activate an environment (optional):
-
-```
-# Using conda
-$ conda create -n gpt2bot python=3.7.6
-$ conda activate gpt2bot
-
-# Using venv (make sure your Python is 3.6+)
-$ python3 -m venv venv
-$ source venv/bin/activate  # Unix
-$ venv\Scripts\activate  # Windows
-```
-
-Install the requirements:
-
-```
-$ pip install -r requirements.txt
-```
-
-Copy a config (see [available configs](https://github.com/polakowo/gpt2bot#configs)):
-
-```
-cp configs/medium-cpu.cfg my_chatbot.cfg
-```
-
-Set your parameters such as API token in the config:
-
-```
-$ nano my_chatbot.cfg
-```
-
-Run the chatbot:
-
-```
-$ python run_bot.py --type=telegram --config=my_chatbot.cfg
-```
-
-### 3. Start chatting!
-
-![](telegram_bot.gif)
-
-Just start texting. Append "@gif" for the bot to also generate a GIF. To reset, type "/start".
-
-## How to improve?
-
-If you feel like your bot is a bit off, you would need to fine-tune its parameters to match
-your conversational style (small talk, fact questions, philosophy - all require different parameters).
-Go to your configuration file and slightly change the parameters of the generator.
-The fastest way to assess the quality of your config is to run a short dialogue between two bots.
-
-There are three parameters that make the biggest impact: `temperature`, `top_k` and `top_p`. 
-For example, you might increase the temperature to make the bot crazier, but expect it to be 
-more off-topic. Or you could reduce the temperature for it to make more coherent answers and 
-capture the context better, but expect it to repeat the same utterance (you may also experiment 
-with `repetition_penalty`). For more tips, see [HuggingFace tutorial](https://huggingface.co/blog/how-to-generate).
-
-Remember that there is no way of finding optimal parameters except by manually tuning them.
-
 ## Configs
 
-* [medium-cpu.cfg](https://github.com/polakowo/gpt2bot/blob/master/configs/medium-cpu.cfg): Medium model, no ranking (CPU)
-* [large-gpu.cfg](https://github.com/polakowo/gpt2bot/blob/master/configs/large-gpu.cfg): Large model, no ranking (GPU)
-* [large-updown-gpu.cfg](https://github.com/polakowo/gpt2bot/blob/master/configs/large-updown-gpu.cfg): Large model, `updown` ranker (GPU)
-* [large-ensemble-gpu.cfg](https://github.com/polakowo/gpt2bot/blob/master/configs/large-ensemble-gpu.cfg): Large model, ensemble of 5 rankers (GPU, >12GB RAM)
+* [medium-cpu.cfg](https://github.com/leocornelius/chloe-ranked/blob/master/configs/medium-cpu.cfg): Medium model, no ranking (CPU)
+* [large-gpu.cfg](https://github.com/leocornelius/chloe-ranked/blob/master/configs/large-gpu.cfg): Large model, no ranking (GPU)
+* [large-updown-gpu.cfg](https://github.com/leocornelius/chloe-ranked/blob/master/configs/large-updown-gpu.cfg): Large model, `updown` ranker (GPU)
+* [large-ensemble-gpu.cfg](https://github.com/leocornelius/chloe-ranked/blob/master/configs/large-ensemble-gpu.cfg): Large model, ensemble of 5 rankers (GPU, >12GB RAM)
+* 
+## Todo
+
+I am currently working on adding LTSM (Long short-term memory) to provide the bot with a better short term memory. The idea is to create a seccond NLP foucosed model that will extract important statements from both the user and the bot and store them. This will then influence the bots decison. Such a model would take the following statement from the user and answer from the bot:
+```
+USER: God, i just love ice cream
+BOT: Ew, i hate ice cream
+```
+And extract that:
+- The user likes ice cream
+- The bot hates ice cream
+It would then add this to a database:
+```
+User.db
+table_likes:
+key: ice creame, context:None
+Bot.db
+table_dislikes
+key: ice creme, context: Hates
+```
+If that user was to poll in the future "Do you like ice cream", the bot would respond simmilar to:
+``No i hate it``. While the bot likes & dislikes will persit between each user to develop personailty, the users will get a DB of their own, using their discord id as an example. In a group context (eg discord server) when checking if a user does like something it will look in the db of the author.
+
+This should provide somewhat effective long term memory, though how to inject these likes and dislikes without causing odd statments (for example if the bot hates cats but likes "eating ice cream" it may respond with "I love eating hate cats"). There will likley need to be anther model that decides which likes and dislikes need to be got from the DB. 
+
+## Quality
+When doing a single turn turing test (one question asked to the bot, a single answer given) it passes with high results. However, due to a lack of long range memory the conversation quickly degrades. Please see the todo secion on how i am trying to mitigate this
+### DSTC-7 challenge
+
+The dialoGPT model achieved the state-of-the-art results in [DSTC-7 Challenge response generation task](https://github.com/mgalley/DSTC7-End-to-End-Conversation-Modeling). 
+
+
+| Experiment         | NIST2 | NIST4 | BLEU2  | BLEU4 | METEOR | ENT-4 | DIST-1 | DIST-2 | Avg. Len |
+|--------------------|-------|-------|--------|-------|--------|----------|------------|------------|---------|
+| Human response     | 2.62  | 2.65  | 12.35% | 3.13% | 8.31%  | 10.45    | 16.66%     | 67.01%     | 18.8    |
+| DSTC-7 Winner      | 2.51  | 2.52  | 14.35% | 1.83% | 8.07%  | 9.03     | 10.89%     | 32.49%     | 15.1    |
+| DialoGPT 345M      | 2.80  | 2.82  | 14.16% | 2.31% | 8.51%  | **10.08**    | 9.13%      | 39.73%     | 16.9    |
+| DialoGPT 345M (BS) | **2.92**  | **2.97**  | **19.18%** | **6.05%** | **9.29%**  | 9.57     | **15.73%**     | **51.03%**     | 14.2    |
+
+where ENT represents the [Entropy score](https://arxiv.org/abs/1809.05972), and DIST represents the [Distinct score](https://arxiv.org/pdf/1510.03055.pdf). For all metrics except the average length, larger are better.  
+
+<!--| Experiment           | NIST1  | NIST2  | NIST3  | NIST4  | BLEU1  | BLEU2  | BLEU3  | BLEU4  | METEOR | ENT-1 | ENT-2 | ENT-3 | ENT-4 | DIST-1 | DIST-2 | Len |
+|----------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------|----------|----------|----------|----------|------------|------------|---------|
+| Human                | 2.4237 | 2.6244 | 2.6472 | 2.65   | 0.3408 | 0.1235 | 0.0572 | 0.0313 | 0.0831 | 6.5893   | 9.7423   | 10.4101  | 10.4450  | 0.1666     | 0.6701     | 18.7568 |
+| DSTC-7 Winner | 2.3408 | 2.5102 | 2.522  | 2.523  | 0.4122 | 0.1435 | 0.0501 | 0.0183 | 0.0807 | 5.3832   | 7.6065   | 8.5304   | 9.0298   | 0.1089     | 0.3249     | 15.1327 |
+| DialoGPT           | 2.5863 | 2.804  | 2.823  | 2.8246 | 0.3927 | 0.1416 | 0.0555 | 0.0231 | 0.0851 | 5.5791   | 8.5109   | 9.6872   | 10.0765  | 0.0913     | 0.3973     | 16.9484 |
+| DialoGPT(beam search)       | **2.5943**| **2.9163** | **2.9624** | **2.9681**| **0.4238** | **0.1918** | **0.1027** | **0.0605** | **0.0929** | **6.0815**   | **8.7379**   | 9.4037   | 9.5697   | 0.1573     | 0.5103     | 14.1603 |-->
+
+Note that the superior automatic evaluation comparing to human responses does not necessary imply that the model achieves human parity. Please check out their paper for more detailed analysis.
 
 ## Credits
-
-Icon made by [Freepik](https://www.freepik.com) from [Flaticon](https://www.flaticon.com/)
+- Thank you to [polakowo](https://github.com/polakowo) for creating the [decoder](https://github.com/polakowo/gpt2bot) for dialoGPT
+- Thank you to Microsoft for creating the underlying dialoGPT model ([paper](https://arxiv.org/abs/1911.00536), [repo](https://github.com/microsoft/DialoGPT)
+- Leo Cornelius, developing the interfaces and POC-LSTM.
